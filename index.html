@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mortgage Rate Comparison | Australia</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-brand">
+        <span class="header-icon" aria-hidden="true">🏠</span>
+        <div>
+          <h1>Mortgage Rate Comparison</h1>
+          <p class="header-tagline">Compare lenders and find your best refinancing option</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card" aria-labelledby="current-loan-heading">
+      <h2 id="current-loan-heading">Your Current Loan</h2>
+      <form id="loan-form" class="form-grid" novalidate>
+        <div class="form-group">
+          <label for="loan-balance">Current loan balance</label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="loan-balance" name="loanBalance" min="0" step="1000" placeholder="500,000" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="current-rate">Current interest rate</label>
+          <div class="input-suffix">
+            <input type="number" id="current-rate" name="currentRate" min="0" max="30" step="0.01" placeholder="6.50" required>
+            <span class="suffix">% p.a.</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="remaining-term">Remaining loan term</label>
+          <div class="input-suffix">
+            <input type="number" id="remaining-term" name="remainingTerm" min="1" max="40" step="1" placeholder="25" required>
+            <span class="suffix">years</span>
+          </div>
+        </div>
+      </form>
+      <div class="current-summary" id="current-summary" hidden>
+        <div class="summary-item">
+          <span class="summary-label">Your current repayment</span>
+          <span class="summary-value" id="current-repayment">—</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="lenders-heading">
+      <div class="section-header">
+        <h2 id="lenders-heading">Compare Lenders</h2>
+        <button type="button" class="btn btn-primary" id="add-lender-btn">+ Add Lender</button>
+      </div>
+
+      <div id="lenders-container" class="lenders-list" role="list"></div>
+
+      <p class="empty-state" id="empty-state">No lenders added yet. Click "Add Lender" to start comparing rates.</p>
+    </section>
+
+    <section class="card results-card" id="results-section" hidden aria-labelledby="results-heading">
+      <h2 id="results-heading">Comparison Results</h2>
+      <div class="table-wrapper">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th scope="col">Lender</th>
+              <th scope="col">Rate</th>
+              <th scope="col">Monthly repayment</th>
+              <th scope="col">Monthly saving</th>
+              <th scope="col">Annual saving</th>
+              <th scope="col">Switching cost</th>
+              <th scope="col">Break-even</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+      <p class="results-note">
+        Repayments are estimated using your remaining loan balance and term. Break-even shows how many months until switching costs are recovered through lower repayments.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Estimates only. Actual repayments may vary. Always seek professional financial advice before refinancing.</p>
+    </div>
+  </footer>
+
+  <template id="lender-template">
+    <article class="lender-card" role="listitem">
+      <div class="lender-card-header">
+        <h3 class="lender-title">Lender <span class="lender-number"></span></h3>
+        <button type="button" class="btn btn-ghost btn-remove" aria-label="Remove lender">Remove</button>
+      </div>
+      <div class="form-grid lender-fields">
+        <div class="form-group">
+          <label>Lender name</label>
+          <input type="text" class="lender-name" placeholder="e.g. Commonwealth Bank" required>
+        </div>
+        <div class="form-group">
+          <label>Interest rate</label>
+          <div class="input-suffix">
+            <input type="number" class="lender-rate" min="0" max="30" step="0.01" placeholder="5.89" required>
+            <span class="suffix">% p.a.</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Switching cost</label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input type="number" class="lender-cost" min="0" step="100" placeholder="2,000" required>
+          </div>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
